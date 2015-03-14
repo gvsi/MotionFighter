@@ -1,8 +1,16 @@
 var playerPrefab : Transform;
+var sphere : Transform;
+var isFirst = true;
 
 function OnNetworkLoadedLevel ()
 {
-	Network.Instantiate(playerPrefab, transform.position, transform.rotation, 0);
+	if(isFirst){
+		Network.Instantiate(playerPrefab, transform.position, transform.rotation, 0);
+		isFirst = false;
+	}else{
+		Network.Instantiate(playerPrefab, sphere.transform.position, sphere.transform.rotation, 0);
+	}
+	
 }
 
 function OnPlayerDisconnected (player : NetworkPlayer)
